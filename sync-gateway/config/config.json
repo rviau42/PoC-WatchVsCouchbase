@@ -1,0 +1,20 @@
+{
+    "log": ["*"],
+    "databases": {
+        "syncwatch": {
+            "server": "http://db:8091",
+            "bucket": "poc-watch",
+            "username": "sync_watch",
+            "password": "azerty",
+            "num_index_replicas": 0,
+            "enable_shared_bucket_access": true,
+            "import_docs": "continuous",
+            "users": { "GUEST": { "disabled": false, "admin_channels": ["*"] } },
+            "sync": `function (doc, oldDoc) {
+                if (doc.deviceId) {
+                    channel(doc.deviceId);
+                }
+            }`        
+        }
+    }
+}
